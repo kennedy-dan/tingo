@@ -25,7 +25,7 @@ export const payStackConfig = (user, customDetails) => {
 			? window.location.href=`http://localhost:3000?isSub=${
 					customDetails.subscription ? customDetails.subscription : ""
 			  }&d=${customDetails.subDiscount}&a=${customDetails.amount}&tx_ref=${customDetails.tx_ref}`
-			:window.location.href= `https://tingoexpress.com/transactionComplete?status=completed&tx_ref=${customDetails.tx_ref}`
+			:window.location.href= `https://tingo-omega.vercel.app/transactionComplete?status=completed&tx_ref=${customDetails.tx_ref}`
 		  },
 	
 			metadata: {
