@@ -4,8 +4,7 @@ export const payStackConfig = (user, customDetails) => {
 	// console.log(customDetails)
 	// console.log(user)
 	if(!customDetails){
-		// console.log(process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEYS)
-		// console.log('gggyyg')
+	
 		return
 	
 	}
