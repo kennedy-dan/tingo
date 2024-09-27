@@ -115,6 +115,9 @@ const ProductsId = ({ prodid }) => {
 
   const catsName = singlecats?.results?.data?.data?.data[0]?.category?.name;
   const catsImg = singlecats?.results?.data?.data?.data[0]?.category?.image_url;
+
+ const from = singlecats?.results?.data?.data?.pagination_meta?.from
+  const to = singlecats?.results?.data?.data?.pagination_meta?.to
   return (
     <section>
       {singlecats?.isLoading && <div className='flex items-center justify-center h-[30vh]' ><ClipLoader /></div>}
@@ -136,7 +139,7 @@ const ProductsId = ({ prodid }) => {
       <div className="py-20 px-4 lg:px-[20px] lg:py-[20px] xl:px-[100px] xl:py-[100px]">
         <div className="flex justify-between ">
           <p className="md:text-[24px] text-[17px] font-montserrat font-semibold ">
-            Showing 1-{itemsPerPage} of {data?.length} results
+          Showing {from}-{to} of {metaData} results
           </p>
 
           <p className="md:text-[24px] hidden text-[14px] font-montserrat font-semibold ">

@@ -30,12 +30,13 @@ const Cart = () => {
   }, [getcart]);
 
   const increaseQuant = (itemId) => {
-    setUpdatingItemId(itemId.id);
+    console.log('yyuu')
+    setUpdatingItemId(itemId.product_id);
     setCartItems((prevItems) =>
       prevItems.map((item) => {
-        if (item.id === itemId.id) {
+        if (item.product_id === itemId.product_id) {
           setquant(item.quantity + 1);
-          setprod(itemId?.product?.id);
+          setprod(itemId?.product?.product_id);
           return { ...item, quantity: item.quantity + 1 };
         }
         return item;
@@ -44,12 +45,12 @@ const Cart = () => {
   };
 
   const decreaseQuant = (itemId) => {
-    setUpdatingItemId(itemId.id);
+    setUpdatingItemId(itemId.product_id);
     setCartItems((prevItems) =>
       prevItems.map((item) => {
-        if (item.id === itemId.id && item.quantity > 1) {
+        if (item.product_id === itemId.product_id && item.quantity > 1) {
           setquant(item.quantity - 1);
-          setprod(itemId?.product?.id);
+          setprod(itemId?.product?.product_id);
           return { ...item, quantity: item.quantity - 1 };
         }
         return item;
@@ -70,7 +71,7 @@ const Cart = () => {
   const removeCart = (id) => {
     setremoveItemId(id?.id);
     const data = {
-      product_id: id?.product?.id,
+      product_id: id?.product?.product_id,
       // image_url: image,
       // action: "decrement",
     };

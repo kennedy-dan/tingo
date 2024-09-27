@@ -18,7 +18,7 @@ const getToken1 = async () => {
 };
 
 const instance = axios.create({
-	baseURL: "https://staging.tingoexpress.com/api/",
+	baseURL: "https://production.tingoexpress.com/api/",
 	headers: {
 		"Content-Type": "application/json",
 		"Access-Control-Allow-Origin": "*",

@@ -16,7 +16,7 @@ const HomeLayout = ({children}) => {
     if(token && user) {
       const timer = setTimeout(() => {
         dispatch(getcartData());
-      }, 5000); // 5000 milliseconds = 5 seconds
+      }, 6000); // 5000 milliseconds = 5 seconds
 
       // Cleanup function to clear the timer if the component unmounts
       return () => clearTimeout(timer);
