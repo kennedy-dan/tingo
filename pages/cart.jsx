@@ -31,33 +31,57 @@ const Cart = () => {
 
   console.log(total)
 
-  const increaseQuant = (itemId) => {
-    console.log('yyuu')
-    setUpdatingItemId(itemId.product_id);
-    setCartItems((prevItems) =>
-      prevItems.map((item) => {
-        if (item.product_id === itemId.product_id) {
-          setquant(Number(item.quantity) + 1);
-          setprod(itemId?.product?.product_id);
-          return { ...item, quantity: Number(item.quantity) + 1 };
+  const updateQuantity = async (item, change) => {
+    // Don't allow quantity to go below 1
+    if (item.quantity + change < 1) return;
+    
+    // Set the updating state for the specific item
+    setUpdatingItemId(item.product_id);
+    
+    // Update local state first for immediate feedback
+    setCartItems(prevItems =>
+      prevItems.map(cartItem => {
+        if (cartItem.product_id === item.product_id) {
+          return { ...cartItem, quantity: parseInt(cartItem.quantity, 10) + change };
         }
-        return item;
+        return cartItem;
       })
     );
+
+    try {
+      // Make the API call directly here instead of relying on useEffect
+      const data = {
+        product_id: item.product?.product_id,
+        quantity: parseInt(item.quantity, 10) + change
+      };
+
+      const result = await dispatch(addtocart(data));
+      if (!result.error) {
+        // Refresh cart data after successful update
+        dispatch(getcartData());
+      }
+    } catch (error) {
+      console.error('Failed to update quantity:', error);
+      // Optionally revert the local state change on error
+      setCartItems(prevItems =>
+        prevItems.map(cartItem => {
+          if (cartItem.product_id === item.product_id) {
+            return { ...cartItem, quantity: parseInt(cartItem.quantity, 10) - change };
+          }
+          return cartItem;
+        })
+      );
+    } finally {
+      setUpdatingItemId(null);
+    }
   };
 
-  const decreaseQuant = (itemId) => {
-    setUpdatingItemId(itemId.product_id);
-    setCartItems((prevItems) =>
-      prevItems.map((item) => {
-        if (item.product_id === itemId.product_id && item.quantity > 1) {
-          setquant(Number(item.quantity) - 1);
-          setprod(itemId?.product?.product_id);
-          return { ...item, quantity: Number(item.quantity) - 1 };
-        }
-        return item;
-      })
-    );
+  const increaseQuant = (item) => {
+    updateQuantity(item, 1);
+  };
+
+  const decreaseQuant = (item) => {
+    updateQuantity(item, -1);
   };
 
   // setCartItems(prevItems =>
@@ -83,6 +107,7 @@ const Cart = () => {
       }
     });
   };
+
 
   useEffect(() => {
     if (quant && prod) {
@@ -159,7 +184,7 @@ const Cart = () => {
                       <img src={"/images/sub.png"} alt="Decrease" />
                     </button>
                     <p className="text-black font-bold px-2 text-[13px]">
-                      {Number(items.quantity)}
+                      {parseInt(items.quantity, 10)}
                     </p>
                     <button onClick={() => increaseQuant(items)}>
                       <img src={"/images/add.png"} alt="Increase" />
