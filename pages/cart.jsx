@@ -190,11 +190,11 @@ const Cart = () => {
             <p className="font-bold text-[32px]">Summary</p>
             <div className="flex justify-between font-[500] mt-7">
               <p className="text-[16px]">Total</p>
-              <p className="text-[16px]">N {total.toFixed(2)}</p>
+              <p className="text-[16px]">N {total?.toFixed(2)}</p>
             </div>
             <div className="flex justify-between font-[500] mt-7">
               <p className="text-[16px]">Subtotal</p>
-              <p className="text-[16px]">N {total.toFixed(2)}</p>
+              <p className="text-[16px]">N {total?.toFixed(2)}</p>
             </div>
             <div className="flex justify-between font-[500] py-6">
               {/* <p className="text-[16px]">Tax</p>
