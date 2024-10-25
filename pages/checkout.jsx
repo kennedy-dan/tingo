@@ -60,7 +60,7 @@ const Checkout = () => {
 
   const calculateTotal = () => {
     return data?.reduce((total, item) => {
-      return total + item.price;
+      return total + Number(item.price);
     }, 0);
   };
 

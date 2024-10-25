@@ -29,15 +29,17 @@ const Cart = () => {
     }
   }, [getcart]);
 
+  console.log(total)
+
   const increaseQuant = (itemId) => {
     console.log('yyuu')
     setUpdatingItemId(itemId.product_id);
     setCartItems((prevItems) =>
       prevItems.map((item) => {
         if (item.product_id === itemId.product_id) {
-          setquant(item.quantity + 1);
+          setquant(Number(item.quantity) + 1);
           setprod(itemId?.product?.product_id);
-          return { ...item, quantity: item.quantity + 1 };
+          return { ...item, quantity: Number(item.quantity) + 1 };
         }
         return item;
       })
@@ -49,9 +51,9 @@ const Cart = () => {
     setCartItems((prevItems) =>
       prevItems.map((item) => {
         if (item.product_id === itemId.product_id && item.quantity > 1) {
-          setquant(item.quantity - 1);
+          setquant(Number(item.quantity) - 1);
           setprod(itemId?.product?.product_id);
-          return { ...item, quantity: item.quantity - 1 };
+          return { ...item, quantity: Number(item.quantity) - 1 };
         }
         return item;
       })
@@ -101,7 +103,7 @@ const Cart = () => {
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
-      return total + item.price;
+      return total + Number(item.price);
     }, 0);
   };
 
@@ -157,7 +159,7 @@ const Cart = () => {
                       <img src={"/images/sub.png"} alt="Decrease" />
                     </button>
                     <p className="text-black font-bold px-2 text-[13px]">
-                      {items.quantity}
+                      {Number(items.quantity)}
                     </p>
                     <button onClick={() => increaseQuant(items)}>
                       <img src={"/images/add.png"} alt="Increase" />
