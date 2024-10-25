@@ -41,7 +41,7 @@ const Cart = () => {
     // Update local state first for immediate feedback
     setCartItems(prevItems =>
       prevItems.map(cartItem => {
-        if (cartItem.product_id === item.product_id) {
+        if (cartItem?.product?.product_id === item.product_id) {
           return { ...cartItem, quantity: parseInt(cartItem.quantity, 10) + change };
         }
         return cartItem;
